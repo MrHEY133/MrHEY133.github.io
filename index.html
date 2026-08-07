@@ -283,7 +283,7 @@ footer{
     <li><a href="#ki"><span class="zahl">02</span>KI-Integration</a></li>
     <li><a href="#lernmedien"><span class="zahl">03</span>Interaktive Lernmedien</a></li>
     <li><a href="#werkzeuge"><span class="zahl">04</span>Werkzeugentwicklung</a></li>
-    <li><a href="#archiv"><span class="zahl">05</span>Materialverwaltung</a></li>
+    <li><a href="#archiv"><span class="zahl">05</span>Unterrichtsarchiv</a></li>
     <li><a href="#gamification"><span class="zahl">06</span>Gamification</a></li>
   </ol>
 </nav>
@@ -293,8 +293,8 @@ footer{
   <!-- ---------- Vorbemerkung ---------- -->
   <div class="blatt vorbemerkung">
     <p>Diese Seite gibt einen Überblick über meine Arbeit im Medienbereich: Kursarchitektur in
-    Moodle, Einbindung von KI-Werkzeugen in den Kursbetrieb, eigene interaktive Lernmedien und
-    unterstützende Werkzeuge.</p>
+    Moodle, Einsatz von KI-Werkzeugen im Unterricht, eigene interaktive Lernmedien sowie
+    Werkzeuge für Verwaltung und Materialarbeit.</p>
 
     <p>Sie ist bewusst als Webseite angelegt und nicht als PDF. Die Arbeitsproben lassen sich so
     unmittelbar benutzen statt nur beschreiben — die Simulation in Abschnitt 3 läuft direkt im
@@ -354,7 +354,28 @@ footer{
       nutzen, statt sie zu vermeiden.</p>
     </div>
 
-    <h3>Belege</h3>
+    <h3>Zweites Format: der Hub als Anker einer Projektwoche</h3>
+    <p>Dieselbe Bauweise trägt auch ein ganz anderes Format. Für eine einwöchige Projektphase
+    — die Lernexpedition <span class="text-platzhalter">Jahrgang und Thema ergänzen</span> —
+    war der Hub der zentrale Anlaufpunkt der gesamten Woche: Auftrag, Materialien,
+    Zwischenstände und Abgabe an einer Stelle, statt über Tage verteilter Zettel und Ansagen.
+    Die Kursstruktur ersetzt hier die Ablauforganisation, die sonst mündlich passiert.</p>
+
+    <div class="spalten">
+      <div class="platzhalter hoch">
+        <span class="marke">Platzhalter — Miniclip 1</span>
+        <div class="was">Aufbau des Lernexpeditions-Hubs</div>
+        <p class="wie">30–60 Sek. Ersetzen durch
+        <code>&lt;video src="expedition-1.mp4" controls width="100%"&gt;&lt;/video&gt;</code></p>
+      </div>
+      <div class="platzhalter hoch">
+        <span class="marke">Platzhalter — Miniclip 2</span>
+        <div class="was">Ablauf einer Projektwoche im Hub</div>
+        <p class="wie">30–60 Sek. Gleiche Einbindung wie nebenan.</p>
+      </div>
+    </div>
+
+    <h3>Belege zur Kursführung</h3>
 
     <div class="platzhalter hoch">
       <span class="marke">Platzhalter — Screencast</span>
@@ -362,13 +383,6 @@ footer{
       <p class="wie">Aufnahme mit OBS Studio. Ersetzen durch
       <code>&lt;video src="rundgang.mp4" controls width="100%"&gt;&lt;/video&gt;</code>
       oder Einbettung des gehosteten Videos.</p>
-    </div>
-
-    <div class="platzhalter">
-      <span class="marke">Platzhalter — Screenshot</span>
-      <div class="was">Hub-Übersichtsseite mit Kachelgitter</div>
-      <p class="wie">Ersetzen durch <code>&lt;figure&gt;&lt;img src="hub-uebersicht.png" alt="…"&gt;
-      &lt;figcaption&gt;…&lt;/figcaption&gt;&lt;/figure&gt;</code></p>
     </div>
 
     <div class="platzhalter">
@@ -390,40 +404,43 @@ footer{
   <section id="ki" class="blatt">
     <div class="abschnittskopf">
       <span class="zahl">02</span>
-      <h2>KI-Integration im Kursbetrieb</h2>
+      <h2>KI-Integration im Unterricht</h2>
     </div>
 
-    <p class="leitsatz">KI-Werkzeuge wirken im Unterricht nur, wenn der Zugang reibungslos ist.
-    Meine Einbindung ist deshalb so gebaut, dass Lernende den Bot anklicken und sofort arbeiten —
-    ohne Zugangscode, ohne zweite Anmeldung, ohne Kontowechsel.</p>
+    <p class="leitsatz">Ein Chatbot ist im Fachunterricht kein Erarbeitungswerkzeug. Entscheidend
+    ist nicht, wie gut er eingebunden ist, sondern ob die Aufgabe zu dem passt, was ein
+    Sprachmodell verlässlich leisten kann.</p>
 
     <div class="spalten">
       <div>
-        <h3>Einbettung ohne Codeeingabe</h3>
+        <h3>Einbettung in den Kursraum</h3>
         <p>Die Lernszenarien binde ich direkt in den Kursraum ein, statt sie zu verlinken. Der
-        Zugangscode steckt in der eingebetteten Adresse und bleibt damit im geschützten Kursraum;
-        die Lernenden bekommen den fertigen Bot, nicht den Weg dorthin. Das entfernt den
-        Reibungspunkt, an dem in der Praxis die meiste Unterrichtszeit verloren geht.</p>
+        Zugangscode steckt dabei in der eingebetteten Adresse — die Lernenden klicken den Bot an
+        und arbeiten sofort, ohne Code einzutippen und ohne zweite Anmeldung.</p>
 
         <h3>Systemprompt und Wissensbasis</h3>
-        <p>Der didaktische Kern liegt nicht in der Einbettung, sondern in der Konfiguration:
-        Rollenbeschreibung, Gesprächsführung, zulässige Hilfestufen und die hinterlegte
-        Wissensbasis entscheiden, ob ein Bot zum Denken anregt oder Lösungen ausgibt.</p>
+        <p>Der eigentliche Aufwand liegt in der Konfiguration: Rollenbeschreibung,
+        Gesprächsführung, zulässige Hilfestufen und die hinterlegte Wissensbasis entscheiden, ob
+        ein Bot zum Denken anregt oder Lösungen ausgibt.</p>
       </div>
       <div>
-        <h3>Onboarding-Chatbot</h3>
-        <p>Für den Einstieg in die digitale Arbeitsumgebung habe ich einen Onboarding-Bot
-        betrieben, der wiederkehrende Fragen zu Zugängen und Abläufen beantwortet hat. Er lief im
-        Schuljahr 2025/26 und ist seit der Umstellung der verlinkten Nextcloud-Struktur außer
-        Betrieb.</p>
-
-        <div class="entscheidung">
-          <span class="marke">Gestaltungsentscheidung</span>
-          <p>Zugangscodes gehören nicht auf öffentlich erreichbare Seiten. Auf dieser Seite steht
-          deshalb keine Szenario-Adresse — die Einbettung wird beschrieben und bebildert, die
-          funktionsfähigen Zugänge bleiben im Kursraum.</p>
-        </div>
+        <h3>Grenzen in Chemie, Mathematik und Physik</h3>
+        <p>Ohne Werkzeugzugriff lässt sich ein Chatbot nicht zu deterministischen Ausgaben
+        zwingen. In der Mathematik wiegt das besonders schwer: Ein falsches Ergebnis wird
+        sprachlich genauso souverän vorgetragen wie ein richtiges, und die Lernenden haben in der
+        Erarbeitungsphase noch kein Urteil, mit dem sie das unterscheiden könnten.</p>
+        <p>Dazu kamen Beschränkungen der Oberfläche: Systemprompts waren bis vor Kurzem auf 400
+        Zeichen begrenzt, mathematische Ausdrücke wurden nicht korrekt dargestellt.</p>
       </div>
+    </div>
+
+    <div class="entscheidung">
+      <span class="marke">Was daraus folgt</span>
+      <p>In meinen Fächern setze ich Chatbots deshalb nicht zur Erarbeitung ein, sondern dort, wo
+      der Umgang mit KI selbst der Gegenstand ist: Die Lernenden müssen die Fachinhalte bereits
+      beurteilen können und nutzen den Bot, um ihre eigenen Ergebnisse zu ordnen, zu prüfen und
+      zu formulieren. Damit wird die Unzuverlässigkeit des Werkzeugs vom Risiko zum Lerngegenstand
+      — und die Beurteilungsfähigkeit bleibt dort, wo sie hingehört.</p>
     </div>
 
     <h3>Belege</h3>
@@ -436,10 +453,10 @@ footer{
     </div>
 
     <div class="platzhalter">
-      <span class="marke">Platzhalter — Textauszug</span>
-      <div class="was">Auszug aus einem Systemprompt</div>
-      <p class="wie">Kurzer, anonymisierter Ausschnitt, der die Hilfestufen-Logik zeigt —
-      wirkungsvoller als jede Beschreibung. Optional als Codeblock.</p>
+      <span class="marke">Platzhalter — Text</span>
+      <div class="was">Ein konkretes Einsatzszenario</div>
+      <p class="wie">Zwei bis drei Sätze: welche Lerngruppe, welcher Auftrag, was die Lernenden
+      mit dem Bot tatsächlich gemacht haben.</p>
     </div>
   </section>
 
@@ -510,12 +527,6 @@ footer{
       https://mrhey111.github.io/unterricht-sims/ch-09-r4-bindungstypen/
     </div>
 
-    <div class="platzhalter">
-      <span class="marke">Platzhalter — weitere Simulationen</span>
-      <div class="was">Zweite eingebettete Simulation</div>
-      <p class="wie">Gleicher Aufbau wie oben: Kurzbeschreibung, technische Anlage,
-      Simulationsbühne. Der Rahmen skaliert automatisch mit.</p>
-    </div>
   </section>
 
   <!-- ---------- 04 Werkzeuge ---------- -->
@@ -525,13 +536,17 @@ footer{
       <h2>Werkzeugentwicklung</h2>
     </div>
 
-    <p class="leitsatz">Wiederkehrende Verwaltungsarbeit, die jede Woche Zeit kostet, lässt sich
-    oft einmalig automatisieren. Der folgende Exporter ist ein solcher Fall.</p>
+    <p class="leitsatz">Verwaltungsaufgaben und organisatorische Abläufe lassen sich oft einmalig
+    lösen statt jedes Mal neu. Zwei Werkzeuge aus diesem Bereich habe ich selbst gebaut.</p>
 
     <h3>Überwachungslistenexporter</h3>
-    <p>Die Anwendung liest Überwachungslisten aus PDF-Dateien aus und erzeugt daraus eine
-    strukturierte XLSX-Datei, mit der sich unmittelbar weiterarbeiten lässt. Sie läuft lokal auf
-    dem Dienstrechner; die Daten verlassen das Gerät nicht.</p>
+    <p>Für die vom Hessischen Kultusministerium geforderte Überwachungsliste der Klassenkonten
+    erzeugt die Anwendung die fertige XLSX-Datei unmittelbar aus den Kontoauszügen. Die Aufgabe
+    fällt einmal im Jahr an, ist aber langwierig und fehleranfällig, weil sonst jede Buchung von
+    Hand übertragen wird.</p>
+    <p>Das Programm läuft lokal auf dem Privatrechner der Lehrkraft und nutzt keine Online-Dienste.
+    Die Kontodaten verlassen das Gerät nicht — die Voraussetzung dafür, dass es überhaupt
+    eingesetzt werden kann.</p>
 
     <div class="entscheidung">
       <span class="marke">Hinweis</span>
@@ -540,23 +555,41 @@ footer{
       zugeschnitten.</p>
     </div>
 
-    <div class="platzhalter">
-      <span class="marke">Platzhalter — Screenshot</span>
-      <div class="was">Oberfläche des Exporters</div>
-      <p class="wie">Mit Beispieldaten, keine echten Namen im Bild.</p>
-    </div>
-
-    <div class="platzhalter">
-      <span class="marke">Platzhalter — Screenshot</span>
-      <div class="was">Erzeugte XLSX-Datei</div>
-      <p class="wie">Ausschnitt der Tabelle mit Beispieldaten.</p>
+    <div class="spalten">
+      <div class="platzhalter">
+        <span class="marke">Platzhalter — Screenshot</span>
+        <div class="was">Oberfläche des Exporters</div>
+        <p class="wie">Mit Beispieldaten, keine echten Namen und keine echten Kontonummern
+        im Bild.</p>
+      </div>
+      <div class="platzhalter">
+        <span class="marke">Platzhalter — Screenshot</span>
+        <div class="was">Erzeugte XLSX-Datei</div>
+        <p class="wie">Ausschnitt der Tabelle mit Beispieldaten.</p>
+      </div>
     </div>
 
     <div class="platzhalter">
       <span class="marke">Platzhalter — Text</span>
-      <div class="was">Technische Umsetzung und Zeitersparnis</div>
+      <div class="was">Technische Umsetzung</div>
       <p class="wie">Ein bis zwei Sätze: eingesetzte Sprache und Bibliotheken, seit wann im
-      Einsatz, wie viel Arbeitszeit pro Durchgang eingespart wird.</p>
+      Einsatz, wie viel Arbeitszeit ein Durchgang spart, ob andere Lehrkräfte es nutzen.</p>
+    </div>
+
+    <h3>Onboarding-Chatbot</h3>
+    <p>Wiederkehrende organisatorische Fragen — Zugänge, Ablagen, Arbeitsabläufe in der digitalen
+    Umgebung — habe ich an einen Chatbot ausgelagert, statt sie einzeln zu beantworten. Er lief im
+    Schuljahr 2025/26 für <span class="text-platzhalter">Zielgruppe ergänzen: Kollegium oder
+    Lerngruppen</span> und ist seit der Umstellung der verlinkten Nextcloud-Struktur außer
+    Betrieb.</p>
+    <p>Der Bot hat keinen Unterricht ersetzt, sondern Organisation: Er beantwortet, was
+    nachschlagbar ist, und hält den Rücken frei für das, was es nicht ist.</p>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Screenshot oder Text</span>
+      <div class="was">Der Bot in Aktion oder ein typischer Frage-Antwort-Verlauf</div>
+      <p class="wie">Alternativ zwei Sätze dazu, welche Fragen am häufigsten kamen — das zeigt
+      den Nutzen oft deutlicher als ein Bild.</p>
     </div>
   </section>
 
@@ -564,41 +597,44 @@ footer{
   <section id="archiv" class="blatt">
     <div class="abschnittskopf">
       <span class="zahl">05</span>
-      <h2>Strukturierte Materialverwaltung</h2>
+      <h2>Unterrichtsarchiv und systematische Iteration</h2>
     </div>
 
-    <p class="leitsatz">Kursproduktion skaliert nur, wenn die Inhalte darunter eine verlässliche
-    Struktur haben. Mein Unterrichtsarchiv ist deshalb nicht als Dateiablage organisiert, sondern
-    als schemagebundener Inhaltsbestand.</p>
+    <p class="leitsatz">Ich verstehe meinen Unterricht als Iterationsprozess, der nie abgeschlossen
+    ist. Damit aus einzelnen Durchläufen tatsächlich Verbesserung wird und nicht nur Erinnerung,
+    braucht es eine Struktur, die den Kontext festhält.</p>
 
     <div class="spalten">
       <div>
+        <h3>Aufbau des Archivs</h3>
         <ul class="merkmale">
           <li>Reine Markdown-Dateien mit YAML-Frontmatter — jede Einheit trägt ihre Metadaten
               maschinenlesbar bei sich</li>
           <li>Querverweise als Wiki-Links, dadurch ein navigierbares Netz statt isolierter Dateien</li>
           <li>Klare Trennung zwischen Planung und Durchführung: das geplante Konzept bleibt
               unverändert, jeder Durchlauf wird getrennt davon erfasst</li>
+          <li>Reflexionen zum Durchlauf gehören fest dazu — sie sind der Punkt, an dem der nächste
+              Durchgang ansetzt</li>
           <li>Eine zentrale Schemadatei als verbindliche Referenz für Ordnerstruktur, Benennung
-              und Pflichtfelder</li>
-          <li>Automatisierte Prüfung, die Abweichungen vom Schema meldet, bevor sie sich
-              ausbreiten</li>
+              und Pflichtfelder, dazu eine automatisierte Prüfung, die Abweichungen meldet</li>
         </ul>
       </div>
       <div>
-        <div class="entscheidung">
-          <span class="marke">Warum das hier steht</span>
-          <p>Der eigentliche Übertrag auf die Kursproduktion liegt im Prinzip: Inhalte werden von
-          ihrer Darstellung getrennt gehalten und an ein prüfbares Schema gebunden. Genau das ist
-          die Voraussetzung dafür, dass Selbstlernkurse arbeitsteilig entstehen, konsistent bleiben
-          und später ohne Bruch überarbeitet werden können.</p>
-        </div>
+        <h3>Warum KI hier ansetzt</h3>
+        <p>Die Systematisierung dieses Iterationsprozesses übernehme ich mit KI-Unterstützung.
+        Deren eigentliche Schwäche bei der Erstellung von Unterrichtsmaterial ist nicht das
+        Formulieren, sondern der fehlende Kontext: Ein Sprachmodell weiß nicht, was in dieser
+        Lerngruppe bereits gelaufen ist, welche Begriffe eingeführt sind und woran es beim letzten
+        Mal gehakt hat.</p>
+        <p>Genau dieser Kontext ist in meinem Archiv lerngruppenbezogen abrufbar. Das Archiv ist
+        damit weniger Ablage als Arbeitsgrundlage — es macht den Unterschied zwischen Material,
+        das allgemein passt, und Material, das für diese Gruppe passt.</p>
 
         <div class="platzhalter">
           <span class="marke">Platzhalter — Screenshot</span>
           <div class="was">Archivstruktur und eine Beispieldatei</div>
           <p class="wie">Ordnerbaum plus eine geöffnete Datei mit sichtbarem Frontmatter.
-          Ohne Lerngruppenbezug, ohne Durchlaufreflexionen.</p>
+          Keine Klarnamen, keine personenbezogenen Angaben im Bild.</p>
         </div>
       </div>
     </div>
