@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fabian Heyne — Tätigkeiten im Medienbereich</title>
+<meta name="description" content="Übersicht der Tätigkeiten im Medienbereich: Moodle-Kursarchitektur, KI-Integration, interaktive Lernmedien, Werkzeugentwicklung.">
+<!-- Die Seite wird gezielt per Link weitergegeben, nicht gesucht.
+     Zum Freigeben fuer Suchmaschinen diese Zeile entfernen. -->
+<meta name="robots" content="noindex, nofollow">
+<style>
+/* ============================================================
+   Portfolio — Tätigkeiten im Medienbereich
+   Einzeldatei, keine externen Abhaengigkeiten, kein Build-Step.
+   Farbwelt bewusst identisch zur eingebetteten Simulation
+   (kuehles Grau + Kupfer), damit Seite und Arbeitsprobe als
+   ein Stueck wirken.
+   ============================================================ */
+
+:root{
+  --grund:       #e7eaec;   /* Flaeche um den Satzspiegel */
+  --feld:        #ffffff;   /* Papierflaeche */
+  --tinte:       #16202b;   /* Haupttext */
+  --gedaempft:   #5c6b7a;   /* Sekundaertext, Beschriftungen */
+  --linie:       #c6ced4;   /* Trennlinien, Rahmen */
+  --linie-zart:  #e2e7ea;
+  --kupfer:      #9c5a2d;   /* Akzent */
+  --kupfer-hell: #f3e6dc;
+  --tiefe:       0 1px 2px rgba(22,32,43,.10), 0 2px 10px rgba(22,32,43,.06);
+  --satz:        1120px;    /* Breite des Satzspiegels */
+}
+
+*{box-sizing:border-box;}
+
+html{scroll-behavior:smooth; scroll-padding-top:76px;}
+
+body{
+  margin:0; background:var(--grund); color:var(--tinte);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.62;
+  -webkit-text-size-adjust:100%;
+}
+
+/* --- Kopfbereich ---------------------------------------------- */
+.kopf{background:var(--tinte); color:#fff; padding:38px 0 30px;}
+.bahn{max-width:var(--satz); margin:0 auto; padding:0 28px;}
+
+.kopf .rolle{
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(255,255,255,.55); margin-bottom:12px;
+}
+.kopf h1{
+  margin:0 0 6px; font-size:34px; font-weight:600; letter-spacing:-.01em;
+}
+.kopf .amt{font-size:15.5px; color:rgba(255,255,255,.78); margin:0;}
+.kopf .kontakt{
+  margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,.15);
+  font-size:13.5px; color:rgba(255,255,255,.66);
+  display:flex; flex-wrap:wrap; gap:6px 26px;
+}
+.kopf .kontakt a{color:rgba(255,255,255,.92);}
+
+/* --- Sprungleiste --------------------------------------------- */
+.leiste{
+  position:sticky; top:0; z-index:20;
+  background:rgba(255,255,255,.94); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--linie);
+}
+.leiste ol{
+  max-width:var(--satz); margin:0 auto; padding:0 28px;
+  list-style:none; display:flex; flex-wrap:wrap; gap:2px;
+}
+.leiste a{
+  display:block; padding:13px 12px; font-size:13px; text-decoration:none;
+  color:var(--gedaempft); border-bottom:2px solid transparent;
+}
+.leiste a:hover{color:var(--kupfer); border-bottom-color:var(--kupfer-hell);}
+.leiste .zahl{
+  font-variant-numeric:tabular-nums; color:var(--kupfer);
+  font-weight:700; margin-right:6px;
+}
+
+/* --- Satzspiegel ---------------------------------------------- */
+main{max-width:var(--satz); margin:0 auto; padding:0 28px 60px;}
+
+.blatt{
+  background:var(--feld); border-radius:8px; box-shadow:var(--tiefe);
+  padding:34px 40px; margin-top:22px;
+}
+
+.vorbemerkung{font-size:17px; line-height:1.7;}
+.vorbemerkung p:first-child{margin-top:0;}
+.vorbemerkung p:last-child{margin-bottom:0;}
+
+/* --- Abschnitte ----------------------------------------------- */
+section{scroll-margin-top:70px;}
+.abschnittskopf{
+  display:flex; align-items:baseline; gap:14px;
+  padding-bottom:12px; margin-bottom:20px;
+  border-bottom:2px solid var(--tinte);
+}
+.abschnittskopf .zahl{
+  font-size:13px; font-weight:700; color:var(--kupfer);
+  font-variant-numeric:tabular-nums; letter-spacing:.06em;
+}
+.abschnittskopf h2{margin:0; font-size:24px; font-weight:600; letter-spacing:-.005em;}
+.abschnittskopf .rang{
+  margin-left:auto; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--kupfer); background:var(--kupfer-hell);
+  padding:4px 10px; border-radius:3px; font-weight:700; white-space:nowrap;
+}
+
+.leitsatz{
+  font-size:17px; line-height:1.65; color:var(--tinte);
+  margin:0 0 22px; padding-left:16px; border-left:3px solid var(--kupfer);
+}
+
+h3{
+  font-size:12px; font-weight:700; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--gedaempft); margin:26px 0 8px;
+}
+p{margin:0 0 13px;}
+main a{color:var(--kupfer);}
+
+.spalten{display:grid; grid-template-columns:1fr 1fr; gap:0 40px;}
+@media (max-width:820px){ .spalten{grid-template-columns:1fr;} }
+
+/* Merkmalsliste mit Kupferstrich */
+ul.merkmale{list-style:none; margin:0 0 13px; padding:0;}
+ul.merkmale li{
+  position:relative; padding-left:20px; margin-bottom:7px;
+}
+ul.merkmale li::before{
+  content:""; position:absolute; left:0; top:.66em;
+  width:9px; height:2px; background:var(--kupfer);
+}
+
+/* Kennwerttabelle (z.B. Quiz-Standardkonfiguration) */
+table.kennwerte{
+  width:100%; border-collapse:collapse; margin:4px 0 16px; font-size:14.5px;
+}
+table.kennwerte th, table.kennwerte td{
+  text-align:left; padding:8px 10px; border-bottom:1px solid var(--linie-zart);
+  vertical-align:top;
+}
+table.kennwerte th{
+  font-weight:600; color:var(--gedaempft); width:44%;
+}
+table.kennwerte tr:last-child th, table.kennwerte tr:last-child td{border-bottom:none;}
+
+/* Hervorgehobener Entscheidungskasten */
+.entscheidung{
+  background:var(--kupfer-hell); border-radius:5px;
+  padding:14px 18px; margin:18px 0; font-size:14.5px;
+}
+.entscheidung .marke{
+  display:block; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:700; color:var(--kupfer); margin-bottom:5px;
+}
+.entscheidung p:last-child{margin-bottom:0;}
+
+/* --- Platzhalter ---------------------------------------------- */
+/* Bewusst auffaellig: darf nicht versehentlich mitversendet werden. */
+.platzhalter{
+  border:2px dashed var(--kupfer); border-radius:6px;
+  background:repeating-linear-gradient(135deg,#fff,#fff 12px,#faf2ea 12px,#faf2ea 24px);
+  padding:22px 20px; margin:14px 0 18px; text-align:center;
+}
+.platzhalter .marke{
+  display:inline-block; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  font-weight:700; color:#fff; background:var(--kupfer);
+  padding:3px 9px; border-radius:3px; margin-bottom:9px;
+}
+.platzhalter .was{font-size:14.5px; font-weight:600; margin-bottom:4px;}
+.platzhalter .wie{font-size:13px; color:var(--gedaempft); margin:0;}
+.platzhalter.hoch{padding:46px 20px;}
+.text-platzhalter{
+  background:var(--kupfer-hell); border-bottom:2px dotted var(--kupfer);
+  padding:1px 5px; border-radius:2px; font-size:.95em; color:var(--kupfer); font-weight:600;
+}
+
+/* Bildunterschrift fuer spaeter eingesetzte Screenshots */
+figure{margin:14px 0 18px;}
+figure img{width:100%; height:auto; border:1px solid var(--linie); border-radius:5px; display:block;}
+figcaption{font-size:13px; color:var(--gedaempft); margin-top:7px;}
+
+/* --- Simulationsbühne ----------------------------------------- */
+.sim-rahmen{
+  border:1px solid var(--linie); border-radius:6px; overflow:hidden;
+  background:var(--grund); margin:6px 0 12px;
+}
+.sim-buehne{position:relative; width:100%; overflow:hidden;}
+.sim-skalierung{
+  width:1024px; height:768px; transform-origin:top left;
+}
+.sim-skalierung iframe{width:1024px; height:768px; border:0; display:block;}
+.sim-fuss{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px;
+  font-size:13px; color:var(--gedaempft); margin-bottom:20px;
+}
+.knopf{
+  display:inline-block; text-decoration:none; font-size:13.5px; font-weight:600;
+  color:#fff; background:var(--kupfer); padding:9px 16px; border-radius:4px;
+}
+.knopf:hover{background:#8a4f27;}
+.sim-druckhinweis{display:none;}
+
+/* Auf schmalen Geraeten waere die eingepasste Simulation nur noch
+   briefmarkengross. Statt sie unlesbar zu zeigen, tritt ein Hinweis
+   mit direktem Aufruf an ihre Stelle. */
+.sim-mobilhinweis{display:none;}
+@media (max-width:700px){
+  .sim-rahmen{display:none;}
+  .sim-mobilhinweis{
+    display:block; border:1px solid var(--linie); border-radius:6px;
+    background:var(--grund); padding:20px; margin:6px 0 12px; text-align:center;
+  }
+  .sim-mobilhinweis .was{font-size:15px; font-weight:600; margin-bottom:6px;}
+  .sim-mobilhinweis p{font-size:13.5px; color:var(--gedaempft); margin:0 0 14px;}
+  .sim-fuss{display:none;}
+}
+
+/* --- Abschluss ------------------------------------------------ */
+.abschluss{background:var(--tinte); color:#fff;}
+.abschluss h2{margin:0 0 12px; font-size:21px; font-weight:600;}
+.abschluss p{color:rgba(255,255,255,.80);}
+.abschluss a{color:#e8b98f;}
+
+footer{
+  max-width:var(--satz); margin:0 auto; padding:22px 28px 46px;
+  font-size:12.5px; color:var(--gedaempft);
+  display:flex; flex-wrap:wrap; gap:6px 22px;
+}
+
+/* --- Druckfassung (Browser → PDF) ----------------------------- */
+@media print{
+  :root{--tiefe:none;}
+  html{scroll-behavior:auto;}
+  body{background:#fff; font-size:10.5pt; line-height:1.45;}
+  .leiste{display:none;}
+  .kopf{padding:0 0 14pt; background:#fff; color:var(--tinte);
+        border-bottom:2pt solid var(--tinte);}
+  .kopf .rolle{color:var(--kupfer);}
+  .kopf .amt, .kopf .kontakt{color:var(--gedaempft);}
+  .kopf .kontakt{border-top:1px solid var(--linie);}
+  .kopf .kontakt a{color:var(--tinte);}
+  .bahn, main, footer{padding-left:0; padding-right:0; max-width:100%;}
+  .blatt{box-shadow:none; border-radius:0; padding:0; margin-top:20pt;
+         break-inside:avoid; page-break-inside:avoid;}
+  section{break-inside:avoid; page-break-inside:avoid;}
+  .abschnittskopf{margin-bottom:10pt;}
+  .abschluss{background:#fff; color:var(--tinte); border-top:2pt solid var(--tinte); padding-top:14pt;}
+  .abschluss p{color:var(--tinte);}
+  .abschluss a{color:var(--tinte);}
+  .sim-rahmen{display:none;}
+  .sim-druckhinweis{
+    display:block; border:1px solid var(--linie); border-radius:4px;
+    padding:10pt; font-size:10pt; background:#fafbfb;
+  }
+  .knopf{display:none;}
+  .platzhalter{background:#fff;}
+}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="bahn">
+    <p class="rolle">Übersicht der Tätigkeiten im Medienbereich</p>
+    <h1>Fabian Heyne</h1>
+    <p class="amt">Studienrat für Chemie, Physik und Mathematik · Sekundarstufe I ·
+       Freiherr-vom-Stein-Schule Eppstein, Kooperative Gesamtschule</p>
+    <div class="kontakt">
+      <span>Dienstlich: <span class="text-platzhalter">dienstliche E-Mail</span></span>
+      <span>Stand: <span class="text-platzhalter">TT.MM.2026</span></span>
+    </div>
+  </div>
+</header>
+
+<nav class="leiste" aria-label="Abschnitte">
+  <ol>
+    <li><a href="#moodle"><span class="zahl">01</span>Moodle-Kursarchitektur</a></li>
+    <li><a href="#ki"><span class="zahl">02</span>KI-Integration</a></li>
+    <li><a href="#lernmedien"><span class="zahl">03</span>Interaktive Lernmedien</a></li>
+    <li><a href="#werkzeuge"><span class="zahl">04</span>Werkzeugentwicklung</a></li>
+    <li><a href="#archiv"><span class="zahl">05</span>Materialverwaltung</a></li>
+    <li><a href="#gamification"><span class="zahl">06</span>Gamification</a></li>
+  </ol>
+</nav>
+
+<main>
+
+  <!-- ---------- Vorbemerkung ---------- -->
+  <div class="blatt vorbemerkung">
+    <p>Diese Seite gibt einen Überblick über meine Arbeit im Medienbereich: Kursarchitektur in
+    Moodle, Einbindung von KI-Werkzeugen in den Kursbetrieb, eigene interaktive Lernmedien und
+    unterstützende Werkzeuge.</p>
+
+    <p>Sie ist bewusst als Webseite angelegt und nicht als PDF. Die Arbeitsproben lassen sich so
+    unmittelbar benutzen statt nur beschreiben — die Simulation in Abschnitt 3 läuft direkt im
+    Browser, ohne Installation und ohne Anmeldung. Die Seite selbst ist eine einzelne HTML-Datei
+    ohne externe Abhängigkeiten und über die Druckfunktion des Browsers als PDF ausgebbar.</p>
+  </div>
+
+  <!-- ---------- 01 Moodle ---------- -->
+  <section id="moodle" class="blatt">
+    <div class="abschnittskopf">
+      <span class="zahl">01</span>
+      <h2>Moodle-Kursarchitektur</h2>
+      <span class="rang">Schwerpunkt</span>
+    </div>
+
+    <p class="leitsatz">Meine Kurse sind keine Materialablagen, sondern Lernumgebungen mit eigener
+    Ablauflogik: Die Kursstruktur steuert, was wann sichtbar wird, und macht den Lernstand für
+    Lernende und Lehrkraft ablesbar.</p>
+
+    <div class="spalten">
+      <div>
+        <h3>Hub-Struktur als Einstieg</h3>
+        <p>Jede Übungsphase beginnt auf einer Übersichtsseite, die ich als universelles Textfeld
+        mit eigenem HTML aufbaue: ein Kachelgitter, das die Teilbereiche zeigt und in den Kurs
+        hinein verzweigt. Der Kursraum bleibt dadurch auch bei vielen Aktivitäten überschaubar —
+        Lernende sehen eine Landkarte statt einer Liste.</p>
+
+        <h3>Freischaltung als diagnostische Ebene</h3>
+        <p>Der Zugang zur nächsten Stufe läuft über kurze Quizze, die an Aktivitätsabschluss und
+        Voraussetzungen gekoppelt sind. Sie dienen nicht der Bewertung, sondern der Diagnose: Die
+        Konfiguration ist bewusst so gewählt, dass Wiederholen der Normalfall ist und niemand an
+        einer Hürde stehen bleibt.</p>
+      </div>
+      <div>
+        <h3>Standardkonfiguration der Freischalt-Quizze</h3>
+        <table class="kennwerte">
+          <tr><th>Fragenpool</th><td>7–8 Fragen je Teilbereich</td></tr>
+          <tr><th>Angezeigt</th><td>4 Fragen, zufällig gezogen</td></tr>
+          <tr><th>Versuche</th><td>unbegrenzt</td></tr>
+          <tr><th>Bestehensgrenze</th><td>75 %</td></tr>
+          <tr><th>Antwortreihenfolge</th><td>durchgehend gemischt</td></tr>
+          <tr><th>Fragetypen</th><td>numerisch, Multiple Choice, Wahr/Falsch, Kurzantwort</td></tr>
+        </table>
+
+        <h3>Abschlussverfolgung als Steuerung</h3>
+        <p>Aktivitätsabschluss und Abschlussverfolgung sind nicht Beiwerk, sondern das Rückgrat
+        der Kursführung: Sie erzeugen die Reihenfolge, geben Lernenden eine sichtbare
+        Fortschrittsanzeige und mir eine Übersicht, an welcher Stelle eine Lerngruppe hängt.</p>
+      </div>
+    </div>
+
+    <div class="entscheidung">
+      <span class="marke">Gestaltungsentscheidung</span>
+      <p>Unbegrenzte Versuche bei gleichzeitig hoher Bestehensgrenze trennen Diagnose von
+      Leistungsbewertung. Das Quiz beantwortet die Frage „Ist der Teilbereich sicher?“ — nicht die
+      Frage „Welche Note?“. Diese Trennung ist die Voraussetzung dafür, dass Lernende Fehlversuche
+      nutzen, statt sie zu vermeiden.</p>
+    </div>
+
+    <h3>Belege</h3>
+
+    <div class="platzhalter hoch">
+      <span class="marke">Platzhalter — Screencast</span>
+      <div class="was">Rundgang durch einen Moodle-Hub (2–3 Min.)</div>
+      <p class="wie">Aufnahme mit OBS Studio. Ersetzen durch
+      <code>&lt;video src="rundgang.mp4" controls width="100%"&gt;&lt;/video&gt;</code>
+      oder Einbettung des gehosteten Videos.</p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Screenshot</span>
+      <div class="was">Hub-Übersichtsseite mit Kachelgitter</div>
+      <p class="wie">Ersetzen durch <code>&lt;figure&gt;&lt;img src="hub-uebersicht.png" alt="…"&gt;
+      &lt;figcaption&gt;…&lt;/figcaption&gt;&lt;/figure&gt;</code></p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Screenshot</span>
+      <div class="was">Freischaltlogik: Voraussetzungen und Abschlussverfolgung</div>
+      <p class="wie">Idealerweise zwei Bilder nebeneinander: Einstellungsdialog und die
+      resultierende Kursansicht aus Sicht der Lernenden.</p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Text</span>
+      <div class="was">Umfang und Reichweite</div>
+      <p class="wie">Ein bis zwei Sätze mit belastbaren Zahlen: Wie viele Kurse, welche
+      Jahrgänge und Fächer, seit wann im Einsatz, ob Kollegium mitgenutzt.</p>
+    </div>
+  </section>
+
+  <!-- ---------- 02 KI ---------- -->
+  <section id="ki" class="blatt">
+    <div class="abschnittskopf">
+      <span class="zahl">02</span>
+      <h2>KI-Integration im Kursbetrieb</h2>
+    </div>
+
+    <p class="leitsatz">KI-Werkzeuge wirken im Unterricht nur, wenn der Zugang reibungslos ist.
+    Meine Einbindung ist deshalb so gebaut, dass Lernende den Bot anklicken und sofort arbeiten —
+    ohne Zugangscode, ohne zweite Anmeldung, ohne Kontowechsel.</p>
+
+    <div class="spalten">
+      <div>
+        <h3>Einbettung ohne Codeeingabe</h3>
+        <p>Die Lernszenarien binde ich direkt in den Kursraum ein, statt sie zu verlinken. Der
+        Zugangscode steckt in der eingebetteten Adresse und bleibt damit im geschützten Kursraum;
+        die Lernenden bekommen den fertigen Bot, nicht den Weg dorthin. Das entfernt den
+        Reibungspunkt, an dem in der Praxis die meiste Unterrichtszeit verloren geht.</p>
+
+        <h3>Systemprompt und Wissensbasis</h3>
+        <p>Der didaktische Kern liegt nicht in der Einbettung, sondern in der Konfiguration:
+        Rollenbeschreibung, Gesprächsführung, zulässige Hilfestufen und die hinterlegte
+        Wissensbasis entscheiden, ob ein Bot zum Denken anregt oder Lösungen ausgibt.</p>
+      </div>
+      <div>
+        <h3>Onboarding-Chatbot</h3>
+        <p>Für den Einstieg in die digitale Arbeitsumgebung habe ich einen Onboarding-Bot
+        betrieben, der wiederkehrende Fragen zu Zugängen und Abläufen beantwortet hat. Er lief im
+        Schuljahr 2025/26 und ist seit der Umstellung der verlinkten Nextcloud-Struktur außer
+        Betrieb.</p>
+
+        <div class="entscheidung">
+          <span class="marke">Gestaltungsentscheidung</span>
+          <p>Zugangscodes gehören nicht auf öffentlich erreichbare Seiten. Auf dieser Seite steht
+          deshalb keine Szenario-Adresse — die Einbettung wird beschrieben und bebildert, die
+          funktionsfähigen Zugänge bleiben im Kursraum.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Belege</h3>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Screenshot</span>
+      <div class="was">Eingebetteter Bot in der Kursansicht</div>
+      <p class="wie">Zugangscode in der Adresszeile und im Quelltext unkenntlich machen, bevor
+      das Bild eingesetzt wird.</p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Textauszug</span>
+      <div class="was">Auszug aus einem Systemprompt</div>
+      <p class="wie">Kurzer, anonymisierter Ausschnitt, der die Hilfestufen-Logik zeigt —
+      wirkungsvoller als jede Beschreibung. Optional als Codeblock.</p>
+    </div>
+  </section>
+
+  <!-- ---------- 03 Lernmedien ---------- -->
+  <section id="lernmedien" class="blatt">
+    <div class="abschnittskopf">
+      <span class="zahl">03</span>
+      <h2>Interaktive Lernmedien</h2>
+      <span class="rang">Direkt bedienbar</span>
+    </div>
+
+    <p class="leitsatz">Wo verfügbare Simulationen nicht zum didaktischen Weg passen, baue ich
+    eigene. Die folgende Simulation ist vollständig funktionsfähig — sie lässt sich hier im
+    Browser bedienen.</p>
+
+    <div class="spalten">
+      <div>
+        <h3>Eigenschaften und Bindungstyp — Chemie, Jahrgang 9</h3>
+        <p>Die Lernenden prüfen sechs Alltagsstoffe an drei Messstationen, ordnen sie anschließend
+        selbst nach der Ähnlichkeit ihrer Messwerte und bekommen erst danach das passende
+        Teilchenmodell und den Fachbegriff. Der Weg führt also vom Befund zur Erklärung, nicht
+        umgekehrt.</p>
+        <p>Entscheidend ist, was die Simulation <em>nicht</em> tut: Sie sagt beim Ordnen nicht
+        „richtig“ oder „falsch“. Wenn eine Gruppe in sich widersprüchlich ist, wird die betroffene
+        Messspalte markiert und eine Frage gestellt. Die Entscheidung bleibt bei den Lernenden.</p>
+      </div>
+      <div>
+        <h3>Technische Anlage</h3>
+        <ul class="merkmale">
+          <li>Eine einzelne HTML-Datei, vollständig offline lauffähig</li>
+          <li>Keine Bibliotheken, keine Schriftnachladung, kein Build-Schritt — alle Grafiken sind
+              als SVG im Dokument erzeugt</li>
+          <li>Auf iPad im Querformat ausgelegt: Bedienung durch Antippen statt Ziehen,
+              Tippziele mindestens 44 px, kein Scrollen in keiner Phase</li>
+          <li>Keine Datenspeicherung, keine Netzwerkzugriffe, keine Anmeldung</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sim-rahmen">
+      <div class="sim-buehne" id="simBuehne">
+        <div class="sim-skalierung" id="simSkalierung">
+          <iframe id="simRahmen"
+                  title="Simulation: Eigenschaften und Bindungstyp"
+                  src="https://mrhey111.github.io/unterricht-sims/ch-09-r4-bindungstypen/"
+                  loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="sim-mobilhinweis">
+      <div class="was">Simulation „Eigenschaften und Bindungstyp“</div>
+      <p>Für Tablet und Desktop ausgelegt. Auf diesem Bildschirm wird sie in einem
+      eigenen Tab besser bedienbar.</p>
+      <a class="knopf" href="https://mrhey111.github.io/unterricht-sims/ch-09-r4-bindungstypen/"
+         target="_blank" rel="noopener">Simulation öffnen</a>
+    </div>
+
+    <div class="sim-fuss">
+      <a class="knopf" href="https://mrhey111.github.io/unterricht-sims/ch-09-r4-bindungstypen/"
+         target="_blank" rel="noopener">Simulation in eigenem Tab öffnen</a>
+      <span>Bedienung: Probe im Stoffregal antippen, danach eine Station antippen.</span>
+    </div>
+
+    <div class="sim-druckhinweis">
+      <strong>Simulation „Eigenschaften und Bindungstyp“</strong><br>
+      In der Druckfassung nicht darstellbar. Direkt aufrufbar unter:
+      https://mrhey111.github.io/unterricht-sims/ch-09-r4-bindungstypen/
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — weitere Simulationen</span>
+      <div class="was">Zweite eingebettete Simulation</div>
+      <p class="wie">Gleicher Aufbau wie oben: Kurzbeschreibung, technische Anlage,
+      Simulationsbühne. Der Rahmen skaliert automatisch mit.</p>
+    </div>
+  </section>
+
+  <!-- ---------- 04 Werkzeuge ---------- -->
+  <section id="werkzeuge" class="blatt">
+    <div class="abschnittskopf">
+      <span class="zahl">04</span>
+      <h2>Werkzeugentwicklung</h2>
+    </div>
+
+    <p class="leitsatz">Wiederkehrende Verwaltungsarbeit, die jede Woche Zeit kostet, lässt sich
+    oft einmalig automatisieren. Der folgende Exporter ist ein solcher Fall.</p>
+
+    <h3>Überwachungslistenexporter</h3>
+    <p>Die Anwendung liest Überwachungslisten aus PDF-Dateien aus und erzeugt daraus eine
+    strukturierte XLSX-Datei, mit der sich unmittelbar weiterarbeiten lässt. Sie läuft lokal auf
+    dem Dienstrechner; die Daten verlassen das Gerät nicht.</p>
+
+    <div class="entscheidung">
+      <span class="marke">Hinweis</span>
+      <p>Das Werkzeug wird hier beschrieben und bebildert, aber nicht zum Herunterladen angeboten:
+      Es verarbeitet personenbezogene Daten und ist auf einen konkreten Dokumentaufbau
+      zugeschnitten.</p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Screenshot</span>
+      <div class="was">Oberfläche des Exporters</div>
+      <p class="wie">Mit Beispieldaten, keine echten Namen im Bild.</p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Screenshot</span>
+      <div class="was">Erzeugte XLSX-Datei</div>
+      <p class="wie">Ausschnitt der Tabelle mit Beispieldaten.</p>
+    </div>
+
+    <div class="platzhalter">
+      <span class="marke">Platzhalter — Text</span>
+      <div class="was">Technische Umsetzung und Zeitersparnis</div>
+      <p class="wie">Ein bis zwei Sätze: eingesetzte Sprache und Bibliotheken, seit wann im
+      Einsatz, wie viel Arbeitszeit pro Durchgang eingespart wird.</p>
+    </div>
+  </section>
+
+  <!-- ---------- 05 Archiv ---------- -->
+  <section id="archiv" class="blatt">
+    <div class="abschnittskopf">
+      <span class="zahl">05</span>
+      <h2>Strukturierte Materialverwaltung</h2>
+    </div>
+
+    <p class="leitsatz">Kursproduktion skaliert nur, wenn die Inhalte darunter eine verlässliche
+    Struktur haben. Mein Unterrichtsarchiv ist deshalb nicht als Dateiablage organisiert, sondern
+    als schemagebundener Inhaltsbestand.</p>
+
+    <div class="spalten">
+      <div>
+        <ul class="merkmale">
+          <li>Reine Markdown-Dateien mit YAML-Frontmatter — jede Einheit trägt ihre Metadaten
+              maschinenlesbar bei sich</li>
+          <li>Querverweise als Wiki-Links, dadurch ein navigierbares Netz statt isolierter Dateien</li>
+          <li>Klare Trennung zwischen Planung und Durchführung: das geplante Konzept bleibt
+              unverändert, jeder Durchlauf wird getrennt davon erfasst</li>
+          <li>Eine zentrale Schemadatei als verbindliche Referenz für Ordnerstruktur, Benennung
+              und Pflichtfelder</li>
+          <li>Automatisierte Prüfung, die Abweichungen vom Schema meldet, bevor sie sich
+              ausbreiten</li>
+        </ul>
+      </div>
+      <div>
+        <div class="entscheidung">
+          <span class="marke">Warum das hier steht</span>
+          <p>Der eigentliche Übertrag auf die Kursproduktion liegt im Prinzip: Inhalte werden von
+          ihrer Darstellung getrennt gehalten und an ein prüfbares Schema gebunden. Genau das ist
+          die Voraussetzung dafür, dass Selbstlernkurse arbeitsteilig entstehen, konsistent bleiben
+          und später ohne Bruch überarbeitet werden können.</p>
+        </div>
+
+        <div class="platzhalter">
+          <span class="marke">Platzhalter — Screenshot</span>
+          <div class="was">Archivstruktur und eine Beispieldatei</div>
+          <p class="wie">Ordnerbaum plus eine geöffnete Datei mit sichtbarem Frontmatter.
+          Ohne Lerngruppenbezug, ohne Durchlaufreflexionen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 06 Gamification ---------- -->
+  <section id="gamification" class="blatt">
+    <div class="abschnittskopf">
+      <span class="zahl">06</span>
+      <h2>Gamification-Prototyp</h2>
+      <span class="rang">In Entwicklung</span>
+    </div>
+
+    <p class="leitsatz">„Taktmeister der Gleichungen“ überträgt lineare Gleichungen in eine
+    Spielstruktur: Das Lösen einer Gleichung ist nicht Beiwerk, sondern die Bedingung für den
+    Fortschritt.</p>
+
+    <div class="spalten">
+      <div>
+        <p>Umgesetzt im RPG Maker MZ. Die Fortschrittspunkte des Spiels sind an Aufgaben gekoppelt —
+        wer weiterkommen will, muss lösen, nicht klicken. Damit liegt die Anstrengung dort, wo der
+        Lerngegenstand ist, und nicht in einer nachgelagerten Belohnung.</p>
+        <div class="platzhalter">
+          <span class="marke">Platzhalter — Text</span>
+          <div class="was">Stand und Erprobung</div>
+          <p class="wie">Entwicklungsstand, Umfang, ob und mit welcher Lerngruppe erprobt,
+          was daraus folgte.</p>
+        </div>
+      </div>
+      <div>
+        <div class="platzhalter hoch">
+          <span class="marke">Platzhalter — Screenshot</span>
+          <div class="was">Spielszene mit Aufgabenstellung</div>
+          <p class="wie">Eine Szene, in der die Gleichung als Fortschrittsbedingung sichtbar ist.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Abschluss ---------- -->
+  <section class="blatt abschluss">
+    <h2>Weiterführend</h2>
+    <p>Gern erstelle ich zu einem konkreten Thema einen Selbstlernkurs als Arbeitsprobe und liefere
+    ihn als Kurs-Export. Dafür genügen mir der gewünschte Gegenstand und die Liste der im
+    Zielsystem verfügbaren Plugins.</p>
+    <p><span class="text-platzhalter">Kontaktzeile oder Schlusssatz nach Wunsch ergänzen</span></p>
+  </section>
+
+</main>
+
+<footer>
+  <span>Fabian Heyne — Übersicht der Tätigkeiten im Medienbereich</span>
+  <span>Diese Seite ist eine einzelne HTML-Datei ohne externe Abhängigkeiten.</span>
+</footer>
+
+<script>
+/* ============================================================
+   Simulationsbühne einpassen
+   Die Simulation ist fuer 1024x768 gebaut und skaliert nicht selbst.
+   Ist die Spalte schmaler, wird sie proportional verkleinert statt
+   beschnitten; die Buehnenhoehe folgt dem Skalierungsfaktor.
+   ============================================================ */
+(function(){
+  const buehne     = document.getElementById('simBuehne');
+  const skalierung = document.getElementById('simSkalierung');
+  if(!buehne || !skalierung) return;
+
+  const BREITE = 1024, HOEHE = 768;
+
+  function einpassen(){
+    const faktor = Math.min(1, buehne.clientWidth / BREITE);
+    skalierung.style.transform = 'scale(' + faktor + ')';
+    buehne.style.height = (HOEHE * faktor) + 'px';
+  }
+
+  einpassen();
+  if(window.ResizeObserver){
+    new ResizeObserver(einpassen).observe(buehne);
+  } else {
+    window.addEventListener('resize', einpassen);
+  }
+})();
+</script>
+
+</body>
+</html>
