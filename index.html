@@ -553,27 +553,39 @@ footer{
         Anleitung herunterladen</a>
     </div>
 
-    <div class="platzhalter">
-      <span class="marke">Platzhalter — Text</span>
-      <div class="was">Technische Umsetzung</div>
-      <p class="wie">Ein bis zwei Sätze: eingesetzte Sprache und Bibliotheken, seit wann im
-      Einsatz, wie viel Arbeitszeit ein Durchgang spart, ob andere Lehrkräfte es nutzen.</p>
-    </div>
+    <p>Technisch ist der Exporter eine in TypeScript und React geschriebene Webanwendung, die
+    nicht im Netz liegt: Eine Startdatei öffnet einen Server ausschließlich auf dem eigenen
+    Rechner, die Anwendung läuft dann im Browser wie eine gewöhnliche Desktop-Software.</p>
+    <p>Die Kontoauszüge werden direkt im Browser gelesen; hinterlegte Erkennungsprofile trennen
+    Buchungen von Anfangs- und Endsalden, wobei ein Profil auf unsere Sparkasse zugeschnitten ist
+    und ein allgemeineres als Rückfallebene dient. Die fertige Liste entsteht aus einer
+    eingebetteten Vorlage im Originalformat des Kultusministeriums.</p>
+    <p>Zwischenstände liegen AES-verschlüsselt in der lokalen Datenbank des Browsers. Es gibt
+    keine Serverkomponente und keinen Netzwerkzugriff — die Kontodaten können das Gerät technisch
+    gar nicht verlassen.</p>
 
     <h3>Onboarding-Chatbot</h3>
-    <p>Wiederkehrende organisatorische Fragen — Zugänge, Ablagen, Arbeitsabläufe in der digitalen
-    Umgebung — habe ich an einen Chatbot ausgelagert, statt sie einzeln zu beantworten. Er lief im
-    Schuljahr 2025/26 für <span class="text-platzhalter">Zielgruppe ergänzen: Kollegium oder
-    Lerngruppen</span> und ist seit der Umstellung der verlinkten Nextcloud-Struktur außer
-    Betrieb.</p>
-    <p>Der Bot hat keinen Unterricht ersetzt, sondern Organisation: Er beantwortet, was
-    nachschlagbar ist, und hält den Rücken frei für das, was es nicht ist.</p>
+    <p>Wiederkehrende organisatorische Fragen beim Dienstantritt — Zugänge, Unterlagen,
+    Abgabewege — habe ich an einen Chatbot ausgelagert, statt sie einzeln zu beantworten. Er lief
+    im Schuljahr 2025/26 für neu eintretende Kolleginnen und Kollegen und ist seit der Umstellung
+    der verlinkten Nextcloud-Struktur außer Betrieb.</p>
+    <p>Der Bot leistet zweierlei: Er verweist auf die im Nextcloud abgelegten Onboarding-Unterlagen
+    und beantwortet die typischen Fragen zum Dienstantritt, mit denen er vorab bestückt ist. Weil
+    die benötigten Unterlagen vom Beschäftigungsverhältnis abhängen, klärt er das zuerst und stellt
+    danach nur die tatsächlich passenden Dokumente zusammen.</p>
 
-    <div class="platzhalter">
-      <span class="marke">Platzhalter — Screenshot oder Text</span>
-      <div class="was">Der Bot in Aktion oder ein typischer Frage-Antwort-Verlauf</div>
-      <p class="wie">Alternativ zwei Sätze dazu, welche Fragen am häufigsten kamen — das zeigt
-      den Nutzen oft deutlicher als ein Bild.</p>
+    <div class="spalten">
+      <figure>
+        <img src="onboarding-bot-start.png" alt="Startbildschirm des Onboarding-Chatbots mit
+             Begrüßung und den beiden Auswahlmöglichkeiten Onboarding und Frage">
+        <figcaption>Einstieg: Der Bot nennt seine zwei Aufgaben und lässt wählen.</figcaption>
+      </figure>
+      <figure>
+        <img src="onboarding-bot-dialog.png" alt="Dialogverlauf: Rückfrage nach dem
+             Beschäftigungsverhältnis, danach die passende Dokumentenliste mit Abgabehinweisen">
+        <figcaption>Nach der Rückfrage zum Beschäftigungsverhältnis folgt die passende
+        Dokumentenliste samt Abgabeweg. Links und Namen im Bild unkenntlich gemacht.</figcaption>
+      </figure>
     </div>
   </section>
 
