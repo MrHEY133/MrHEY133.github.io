@@ -188,6 +188,17 @@ figure img, figure video{
 figure img{background:none;}
 figcaption{font-size:13px; color:var(--gedaempft); margin-top:7px;}
 
+/* --- Anhang zum Herunterladen --------------------------------- */
+.anhang{
+  display:flex; flex-wrap:wrap; align-items:center; gap:14px 20px;
+  border:1px solid var(--linie); border-left:4px solid var(--kupfer);
+  border-radius:5px; background:var(--grund);
+  padding:14px 18px; margin:18px 0;
+}
+.anhang-text{flex:1; min-width:240px;}
+.anhang-titel{font-size:15px; font-weight:600; margin-bottom:2px;}
+.anhang-text p{margin:0; font-size:13px; color:var(--gedaempft);}
+
 /* --- Simulationsbühne ----------------------------------------- */
 .sim-rahmen{
   border:1px solid var(--linie); border-radius:6px; overflow:hidden;
@@ -257,6 +268,12 @@ footer{
   .abschluss p{color:var(--tinte);}
   .abschluss a{color:var(--tinte);}
   figure video{display:none;}   /* im Druck traegt die Bildunterschrift den Inhalt */
+  .anhang{background:#fff;}
+  .anhang .knopf{display:none;}
+  .anhang-text::after{
+    content:"Beiliegend als PDF: anleitung-ueberwachungslistenexporter.pdf";
+    display:block; margin-top:6px; font-size:9.5pt; color:var(--gedaempft);
+  }
   .sim-rahmen{display:none;}
   .sim-druckhinweis{
     display:block; border:1px solid var(--linie); border-radius:4px;
@@ -506,22 +523,34 @@ footer{
 
     <div class="entscheidung">
       <span class="marke">Hinweis</span>
-      <p>Ich sende Ihnen, die von mir damals erstellte Anleitung mit Bildern. Das Programm selbst, sende ich Ihnen nicht, da der Parser ausschließlich auf die Kontoauszüge unserer Sparkasse abgestimmt ist.
-     </p>
+      <p>Als Nachweis finden Sie unten die Anleitung, die ich seinerzeit für das Kollegium
+      erstellt habe. Das Programm selbst gebe ich nicht weiter, da der Parser ausschließlich auf
+      die Kontoauszüge unserer Sparkasse abgestimmt ist.</p>
     </div>
 
     <div class="spalten">
-      <div class="platzhalter">
-        <span class="marke">Platzhalter — Screenshot</span>
-        <div class="was">Oberfläche des Exporters</div>
-        <p class="wie">Mit Beispieldaten, keine echten Namen und keine echten Kontonummern
-        im Bild.</p>
+      <figure>
+        <img src="exporter-oberflaeche.png" alt="Oberfläche des Überwachungslistenexporters mit
+             den Bereichen Import, Schuldaten und Export">
+        <figcaption>Oberfläche des Exporters: Kontoauszüge importieren, Schuldaten ergänzen,
+        XLSX erzeugen.</figcaption>
+      </figure>
+      <figure>
+        <img src="exporter-xlsx.png" alt="Erzeugte Überwachungsliste als Excel-Tabelle,
+             Beträge und Namen unkenntlich gemacht">
+        <figcaption>Das Ergebnis: die fertige Überwachungsliste im Format des Kultusministeriums.
+        Buchungsdaten im Bild unkenntlich gemacht.</figcaption>
+      </figure>
+    </div>
+
+    <div class="anhang">
+      <div class="anhang-text">
+        <div class="anhang-titel">Anleitung Überwachungslistenexporter</div>
+        <p>Bebilderte Handreichung für das Kollegium, 7 Seiten (PDF, 372 KB) — Auszug ohne die
+        schulinternen Bezugsquellen.</p>
       </div>
-      <div class="platzhalter">
-        <span class="marke">Platzhalter — Screenshot</span>
-        <div class="was">Erzeugte XLSX-Datei</div>
-        <p class="wie">Ausschnitt der Tabelle mit Beispieldaten.</p>
-      </div>
+      <a class="knopf" href="anleitung-ueberwachungslistenexporter.pdf" download>
+        Anleitung herunterladen</a>
     </div>
 
     <div class="platzhalter">
