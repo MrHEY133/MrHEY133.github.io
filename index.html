@@ -218,6 +218,11 @@ figcaption{font-size:13px; color:var(--gedaempft); margin-top:7px;}
   color:#fff; background:var(--kupfer); padding:9px 16px; border-radius:4px;
 }
 .knopf:hover{background:#8a4f27;}
+.knopf.zweitrangig{
+  background:transparent; color:var(--kupfer); border:1.5px solid var(--kupfer);
+  padding:7.5px 14px;
+}
+.knopf.zweitrangig:hover{background:var(--kupfer-hell);}
 .sim-druckhinweis{display:none;}
 
 /* Auf schmalen Geraeten waere die eingepasste Simulation nur noch
@@ -633,6 +638,17 @@ footer{
           Keine Klarnamen, keine personenbezogenen Angaben im Bild.</p>
         </div>
       </div>
+    </div>
+
+    <div class="anhang">
+      <div class="anhang-text">
+        <div class="anhang-titel">Systemdokumentation des Unterrichtsarchivs</div>
+        <p>Vollständige Beschreibung in 15 Abschnitten: Ordnerlogik, Dokumenttypen, Schema und
+        automatisierte Prüfung, die Skill-Kette und ihre Abhängigkeiten (Markdown, ca. 21 KB).</p>
+      </div>
+      <a class="knopf" href="https://github.com/MrHEY133/MrHEY133.github.io/blob/main/unterrichtsarchiv-dokumentation.md"
+         target="_blank" rel="noopener">Im Browser lesen</a>
+      <a class="knopf zweitrangig" href="unterrichtsarchiv-dokumentation.md" download>Herunterladen</a>
     </div>
   </section>
 
