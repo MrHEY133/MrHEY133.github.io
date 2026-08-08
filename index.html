@@ -181,7 +181,11 @@ table.kennwerte tr:last-child th, table.kennwerte tr:last-child td{border-bottom
 
 /* Bildunterschrift fuer spaeter eingesetzte Screenshots */
 figure{margin:14px 0 18px;}
-figure img{width:100%; height:auto; border:1px solid var(--linie); border-radius:5px; display:block;}
+figure img, figure video{
+  width:100%; height:auto; border:1px solid var(--linie); border-radius:5px;
+  display:block; background:#000;
+}
+figure img{background:none;}
 figcaption{font-size:13px; color:var(--gedaempft); margin-top:7px;}
 
 /* --- Simulationsbühne ----------------------------------------- */
@@ -252,6 +256,7 @@ footer{
   .abschluss{background:#fff; color:var(--tinte); border-top:2pt solid var(--tinte); padding-top:14pt;}
   .abschluss p{color:var(--tinte);}
   .abschluss a{color:var(--tinte);}
+  figure video{display:none;}   /* im Druck traegt die Bildunterschrift den Inhalt */
   .sim-rahmen{display:none;}
   .sim-druckhinweis{
     display:block; border:1px solid var(--linie); border-radius:4px;
@@ -361,29 +366,19 @@ footer{
     Zwischenstände und Abgabe an einer Stelle, statt über Tage verteilter Zettel und Ansagen.
     Die Kursstruktur ersetzt hier die Ablauforganisation, die sonst mündlich passiert.</p>
 
-    <div class="spalten">
-      <div class="platzhalter hoch">
-        <span class="marke">Platzhalter — Miniclip 1</span>
-        <div class="was">Aufbau des Lernexpeditions-Hubs</div>
-        <p class="wie">30–60 Sek. Ersetzen durch
-        <code>&lt;video src="expedition-1.mp4" controls width="100%"&gt;&lt;/video&gt;</code></p>
-      </div>
-      <div class="platzhalter hoch">
-        <span class="marke">Platzhalter — Miniclip 2</span>
-        <div class="was">Ablauf einer Projektwoche im Hub</div>
-        <p class="wie">30–60 Sek. Gleiche Einbindung wie nebenan.</p>
-      </div>
-    </div>
+    <figure>
+      <video src="lernexpedition.mp4" controls preload="metadata" playsinline></video>
+      <figcaption>Der Hub als zentraler Anlaufpunkt einer einwöchigen Projektphase:
+      Auftrag, Materialien und Abgabe an einer Stelle.</figcaption>
+    </figure>
 
     <h3>Belege zur Kursführung</h3>
 
-    <div class="platzhalter hoch">
-      <span class="marke">Platzhalter — Screencast</span>
-      <div class="was">Rundgang durch einen Moodle-Hub (2–3 Min.)</div>
-      <p class="wie">Aufnahme mit OBS Studio. Ersetzen durch
-      <code>&lt;video src="rundgang.mp4" controls width="100%"&gt;&lt;/video&gt;</code>
-      oder Einbettung des gehosteten Videos.</p>
-    </div>
+    <figure>
+      <video src="moodle-hub.mp4" controls preload="metadata" playsinline></video>
+      <figcaption>Rundgang durch einen Moodle-Hub: Aufbau der Übersichtsseite, Freischaltung
+      über die Diagnose-Quizze und die daraus entstehende Kursführung.</figcaption>
+    </figure>
 
     <div class="platzhalter">
       <span class="marke">Platzhalter — Screenshot</span>
