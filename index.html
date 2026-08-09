@@ -95,7 +95,7 @@ main{max-width:var(--satz); margin:0 auto; padding:0 28px 60px;}
 /* --- Abschnitte ----------------------------------------------- */
 section{scroll-margin-top:70px;}
 .abschnittskopf{
-  display:flex; align-items:baseline; gap:14px;
+  display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
   padding-bottom:12px; margin-bottom:20px;
   border-bottom:2px solid var(--tinte);
 }
@@ -108,6 +108,11 @@ section{scroll-margin-top:70px;}
   margin-left:auto; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
   color:var(--kupfer); background:var(--kupfer-hell);
   padding:4px 10px; border-radius:3px; font-weight:700; white-space:nowrap;
+}
+/* Auf schmalen Geraeten passt der Aufkleber nicht mehr neben die
+   Ueberschrift — er rutscht dann linksbuendig in die naechste Zeile. */
+@media (max-width:560px){
+  .abschnittskopf .rang{margin-left:0;}
 }
 
 .leitsatz{
@@ -187,6 +192,37 @@ figure img, figure video{
 }
 figure img{background:none;}
 figcaption{font-size:13px; color:var(--gedaempft); margin-top:7px;}
+
+/* --- Bildvergroesserung ---------------------------------------- */
+figure img{cursor:zoom-in; transition:filter .15s;}
+figure img:hover{filter:brightness(.94);}
+figure img:focus-visible{outline:3px solid var(--kupfer); outline-offset:2px;}
+
+.lupe{
+  position:fixed; inset:0; z-index:100;
+  background:rgba(12,18,24,.90);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:14px; padding:28px; cursor:zoom-out;
+}
+.lupe[hidden]{display:none;}
+.lupe img{
+  max-width:100%; max-height:calc(100vh - 130px);
+  width:auto; height:auto; object-fit:contain;
+  border-radius:4px; box-shadow:0 8px 40px rgba(0,0,0,.5); background:#fff;
+}
+.lupe .beschriftung{
+  color:rgba(255,255,255,.88); font-size:13.5px; line-height:1.5;
+  max-width:760px; text-align:center;
+}
+.lupe .schliessen{
+  position:absolute; top:16px; right:18px;
+  min-width:44px; min-height:44px; padding:0 14px;
+  background:rgba(255,255,255,.12); color:#fff;
+  border:1px solid rgba(255,255,255,.35); border-radius:4px;
+  font-size:14px; cursor:pointer;
+}
+.lupe .schliessen:hover{background:rgba(255,255,255,.22);}
+body.lupe-offen{overflow:hidden;}
 
 /* --- Anhang zum Herunterladen --------------------------------- */
 .anhang{
@@ -282,6 +318,7 @@ footer{
     content:"Beiliegend als PDF: anleitung-ueberwachungslistenexporter.pdf";
     display:block; margin-top:6px; font-size:9.5pt; color:var(--gedaempft);
   }
+  .lupe{display:none !important;}
   .sim-rahmen{display:none;}
   .sim-druckhinweis{
     display:block; border:1px solid var(--linie); border-radius:4px;
@@ -725,12 +762,73 @@ footer{
 
 </main>
 
+<!-- Bildvergroesserung: ein Overlay fuer alle Abbildungen -->
+<div class="lupe" id="lupe" hidden role="dialog" aria-modal="true" aria-label="Vergrößerte Abbildung">
+  <button class="schliessen" id="lupeZu" type="button" aria-label="Schließen">Schließen</button>
+  <img id="lupeBild" src="" alt="">
+  <p class="beschriftung" id="lupeText"></p>
+</div>
+
 <footer>
   <span>Fabian Heyne — Übersicht der Tätigkeiten im Medienbereich</span>
   <span>Diese Seite ist eine einzelne HTML-Datei ohne externe Abhängigkeiten.</span>
 </footer>
 
 <script>
+/* ============================================================
+   Bildvergrößerung
+   Die Abbildungen stehen in halber Spaltenbreite und sind dort
+   nur als Eindruck lesbar. Ein Klick zeigt sie gross, mit der
+   Bildunterschrift als Erlaeuterung.
+   ============================================================ */
+(function(){
+  const lupe  = document.getElementById('lupe');
+  const bild  = document.getElementById('lupeBild');
+  const text  = document.getElementById('lupeText');
+  const zu    = document.getElementById('lupeZu');
+  if(!lupe) return;
+
+  let herkunft = null;      /* Bild, von dem aus geoeffnet wurde */
+
+  function oeffnen(quelle){
+    bild.src = quelle.currentSrc || quelle.src;
+    bild.alt = quelle.alt || '';
+    const unterschrift = quelle.closest('figure')
+      ? quelle.closest('figure').querySelector('figcaption') : null;
+    text.textContent = unterschrift ? unterschrift.textContent.trim() : '';
+    herkunft = quelle;
+    lupe.hidden = false;
+    document.body.classList.add('lupe-offen');
+    zu.focus();
+  }
+
+  function schliessen(){
+    lupe.hidden = true;
+    bild.src = '';
+    document.body.classList.remove('lupe-offen');
+    if(herkunft){ herkunft.focus(); herkunft = null; }
+  }
+
+  /* Delegiert, damit auch spaeter ergaenzte Abbildungen mitmachen */
+  document.addEventListener('click', function(e){
+    const img = e.target.closest('figure img');
+    if(img){ oeffnen(img); return; }
+    if(!lupe.hidden && (e.target === lupe || e.target === zu)) schliessen();
+  });
+
+  /* Tastatur: Bilder anwaehlbar machen, Enter oeffnet, Esc schliesst */
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); oeffnen(img); }
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !lupe.hidden) schliessen();
+  });
+})();
+
 /* ============================================================
    Simulationsbühne einpassen
    Die Simulation ist fuer 1024x768 gebaut und skaliert nicht selbst.
