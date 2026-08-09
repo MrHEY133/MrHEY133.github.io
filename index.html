@@ -73,11 +73,31 @@ body{
 .leiste a{
   display:block; padding:13px 12px; font-size:13px; text-decoration:none;
   color:var(--gedaempft); border-bottom:2px solid transparent;
+  border-radius:3px 3px 0 0;
+  transition:color .15s, background-color .15s, border-color .15s;
 }
-.leiste a:hover{color:var(--kupfer); border-bottom-color:var(--kupfer-hell);}
+.leiste a:hover{
+  color:var(--kupfer); background:var(--kupfer-hell);
+  border-bottom-color:var(--kupfer-hell);
+}
+.leiste a:focus-visible{outline:2px solid var(--kupfer); outline-offset:-2px;}
 .leiste .zahl{
   font-variant-numeric:tabular-nums; color:var(--kupfer);
   font-weight:700; margin-right:6px;
+}
+
+/* Der Abschnitt, in dem man sich gerade befindet */
+.leiste a.aktiv{
+  color:var(--kupfer); font-weight:600;
+  background:var(--kupfer-hell); border-bottom-color:var(--kupfer);
+}
+.leiste a.aktiv .zahl{color:var(--kupfer);}
+/* Auf schmalen Geraeten bricht die Leiste in mehrere Zeilen um und
+   wuerde sonst ein Viertel des Bildschirms dauerhaft belegen. */
+@media (max-width:640px){
+  .leiste ol{padding:0 16px; gap:1px;}
+  .leiste a{padding:8px 9px; font-size:12px;}
+  .leiste .zahl{margin-right:4px;}
 }
 
 /* --- Satzspiegel ---------------------------------------------- */
@@ -297,6 +317,7 @@ footer{
   html{scroll-behavior:auto;}
   body{background:#fff; font-size:10.5pt; line-height:1.45;}
   .leiste{display:none;}
+  .leiste a.aktiv{background:none;}
   .kopf{padding:0 0 14pt; background:#fff; color:var(--tinte);
         border-bottom:2pt solid var(--tinte);}
   .kopf .rolle{color:var(--kupfer);}
@@ -776,6 +797,62 @@ footer{
 </footer>
 
 <script>
+/* ============================================================
+   Mitlaufende Markierung in der Sprungleiste
+   Zeigt jederzeit, in welchem Abschnitt man sich befindet.
+   Nebeneffekt: Die Leiste ist dadurch als Navigation erkennbar
+   und nicht bloss als Beschriftung.
+   ============================================================ */
+(function(){
+  const leiste = document.querySelector('.leiste');
+  if(!leiste) return;
+
+  const eintraege = [...leiste.querySelectorAll('a')].map(function(a){
+    const ziel = document.querySelector(a.getAttribute('href'));
+    return ziel ? {a:a, ziel:ziel} : null;
+  }).filter(Boolean);
+  if(!eintraege.length) return;
+
+  function markieren(){
+    /* Massgeblich ist die Unterkante der Leiste: Als aktiv gilt der
+       letzte Abschnitt, dessen Oberkante bereits darueber liegt. */
+    const grenze = leiste.getBoundingClientRect().bottom + 10;
+    let aktiv = eintraege[0];
+    eintraege.forEach(function(e){
+      if(e.ziel.getBoundingClientRect().top <= grenze) aktiv = e;
+    });
+
+    /* Am Seitenende immer den letzten Abschnitt markieren — sonst
+       bliebe ein kurzer Schlussabschnitt nie erreichbar. */
+    const amEnde = window.innerHeight + window.scrollY
+                   >= document.documentElement.scrollHeight - 4;
+    if(amEnde) aktiv = eintraege[eintraege.length - 1];
+
+    eintraege.forEach(function(e){
+      const an = (e === aktiv);
+      e.a.classList.toggle('aktiv', an);
+      if(an) e.a.setAttribute('aria-current', 'true');
+      else   e.a.removeAttribute('aria-current');
+    });
+  }
+
+  /* Hoechstens alle 80 ms rechnen. Bewusst zeitgesteuert und nicht ueber
+     requestAnimationFrame: Das ist unabhaengig davon, ob der Browser gerade
+     Bilder aufbaut, und die Rechnung selbst ist billig. */
+  let zuletzt = 0, nachlauf = null;
+  function anstossen(){
+    const jetzt = Date.now();
+    clearTimeout(nachlauf);
+    if(jetzt - zuletzt >= 80){ zuletzt = jetzt; markieren(); }
+    else nachlauf = setTimeout(function(){ zuletzt = Date.now(); markieren(); }, 80);
+  }
+
+  markieren();
+  window.addEventListener('scroll', anstossen, {passive:true});
+  window.addEventListener('resize', anstossen);
+  window.addEventListener('load', markieren);
+})();
+
 /* ============================================================
    Bildvergrößerung
    Die Abbildungen stehen in halber Spaltenbreite und sind dort
