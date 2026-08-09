@@ -32,7 +32,11 @@
 
 *{box-sizing:border-box;}
 
-html{scroll-behavior:smooth; scroll-padding-top:76px;}
+/* Der Abstand, mit dem ein angesprungener Abschnitt unter der klebenden
+   Leiste zu liegen kommt, steht ausschliesslich in section{scroll-margin-top}.
+   Hier bewusst 0, damit es nur eine Stelle gibt — das Skript liest denselben
+   Wert fuer die Kapitelmarkierung aus. */
+html{scroll-behavior:smooth; scroll-padding-top:0;}
 
 body{
   margin:0; background:var(--grund); color:var(--tinte);
@@ -113,7 +117,12 @@ main{max-width:var(--satz); margin:0 auto; padding:0 28px 60px;}
 .vorbemerkung p:last-child{margin-bottom:0;}
 
 /* --- Abschnitte ----------------------------------------------- */
+/* Abstand, mit dem ein angesprungener Abschnitt unter der klebenden Leiste
+   landet — muss hoeher sein als die Leiste selbst, sonst verschwindet die
+   Ueberschrift dahinter. Auf schmalen Geraeten bricht die Leiste um und
+   wird entsprechend hoeher. Das Skript liest diesen Wert aus. */
 section{scroll-margin-top:70px;}
+@media (max-width:640px){ section{scroll-margin-top:126px;} }
 .abschnittskopf{
   display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
   padding-bottom:12px; margin-bottom:20px;
@@ -813,13 +822,22 @@ footer{
   }).filter(Boolean);
   if(!eintraege.length) return;
 
+  /* Wohin ein Abschnitt nach einem Klick auf die Leiste rutscht: Summe aus
+     der Scroll-Polsterung des Dokuments und dem Abstand des Abschnitts.
+     Genau dieser Wert ist die Schwelle — sonst gilt ein eben angesprungener
+     Abschnitt noch als nicht erreicht und die Leiste zeigt den vorigen an. */
+  function landeposition(ziel){
+    const polster = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const abstand = parseFloat(getComputedStyle(ziel).scrollMarginTop) || 0;
+    return polster + abstand + 4;      /* kleine Toleranz gegen Rundung */
+  }
+
   function markieren(){
-    /* Massgeblich ist die Unterkante der Leiste: Als aktiv gilt der
-       letzte Abschnitt, dessen Oberkante bereits darueber liegt. */
-    const grenze = leiste.getBoundingClientRect().bottom + 10;
+    /* Aktiv ist der letzte Abschnitt, dessen Oberkante die Schwelle
+       bereits erreicht oder überschritten hat. */
     let aktiv = eintraege[0];
     eintraege.forEach(function(e){
-      if(e.ziel.getBoundingClientRect().top <= grenze) aktiv = e;
+      if(e.ziel.getBoundingClientRect().top <= landeposition(e.ziel)) aktiv = e;
     });
 
     /* Am Seitenende immer den letzten Abschnitt markieren — sonst
