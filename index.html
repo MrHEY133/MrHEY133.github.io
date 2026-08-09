@@ -208,7 +208,9 @@ figcaption{font-size:13px; color:var(--gedaempft); margin-top:7px;}
 .sim-skalierung{
   width:1024px; height:768px; transform-origin:top left;
 }
-.sim-skalierung iframe{width:1024px; height:768px; border:0; display:block;}
+.sim-skalierung iframe{width:100%; height:100%; border:0; display:block;}
+/* Das Lernspiel laeuft in 800x600, nicht in der Aufloesung der Simulation */
+#spielSkalierung{width:800px; height:600px;}
 .sim-fuss{
   display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px;
   font-size:13px; color:var(--gedaempft); margin-bottom:20px;
@@ -651,32 +653,71 @@ footer{
     <div class="abschnittskopf">
       <span class="zahl">06</span>
       <h2>Gamification-Prototyp</h2>
-      <span class="rang">In Entwicklung</span>
+      <span class="rang">Direkt spielbar</span>
     </div>
 
-    <p class="leitsatz">„Taktmeister der Gleichungen“ überträgt lineare Gleichungen in eine
+    <p class="leitsatz">„Aequoria und die Große Waage“ überträgt lineare Gleichungen in eine
     Spielstruktur: Das Lösen einer Gleichung ist nicht Beiwerk, sondern die Bedingung für den
     Fortschritt.</p>
 
     <div class="spalten">
       <div>
-        <p>Umgesetzt im RPG Maker MZ. Die Fortschrittspunkte des Spiels sind an Aufgaben gekoppelt —
-        wer weiterkommen will, muss lösen, nicht klicken. Damit liegt die Anstrengung dort, wo der
-        Lerngegenstand ist, und nicht in einer nachgelagerten Belohnung.</p>
-        <div class="platzhalter">
-          <span class="marke">Platzhalter — Text</span>
-          <div class="was">Stand und Erprobung</div>
-          <p class="wie">Entwicklungsstand, Umfang, ob und mit welcher Lerngruppe erprobt,
-          was daraus folgte.</p>
-        </div>
+        <h3>Die Waage als durchgängiges Modell</h3>
+        <p>Das Bergdorf Aequoria wird von einer großen Waage im Gleichgewicht gehalten. Malus der
+        Ungleiche hat die Ausgleichsgewichte gestohlen — er verkörpert das häufigste Fehlkonzept
+        beim Umformen: nur eine Seite zu bearbeiten. Die Waage ist damit nicht Dekoration, sondern
+        das didaktische Modell der Äquivalenzumformung, das die ganze Spielhandlung trägt.</p>
+
+        <h3>Fortschritt nur über Verstehen</h3>
+        <p>Die Aufgaben sind in fünf Stufen gestaffelt, von <em>x ± a = b</em> bis
+        <em>a(x + b) = c</em>. Ab der dritten Stufe fragt das Spiel nicht nur das Ergebnis ab,
+        sondern den Weg: Was tust du zuerst auf beiden Seiten? Fehler lösen gestufte Hilfen aus —
+        erst ein strategischer Impuls, dann eine konkrete Anweisung, zuletzt der gezeigte
+        Lösungsweg mit neuen Zahlen. Raten führt nicht zum Ziel.</p>
       </div>
       <div>
-        <div class="platzhalter hoch">
-          <span class="marke">Platzhalter — Screenshot</span>
-          <div class="was">Spielszene mit Aufgabenstellung</div>
-          <p class="wie">Eine Szene, in der die Gleichung als Fortschrittsbedingung sichtbar ist.</p>
+        <h3>Warum eine Spielstruktur</h3>
+        <p>Gelöste Gleichungen bringen Kristalle, mit denen die Ausrüstung verbessert wird. Der
+        erste Gegner ist ohne diese Aufwertung nicht zu besiegen — die Rechenarbeit ist also nicht
+        belohnt, sondern vorausgesetzt. Zugleich bleibt Feststecken unmöglich: Die Siegel sind
+        unabhängig vom Energiestand immer lösbar.</p>
+
+        <h3>Stand</h3>
+        <p>Umgesetzt im RPG Maker MZ, Spielzeit etwa eine Doppelstunde. Der Prototyp ist
+        vollständig durchspielbar und lief bislang nicht im Regelunterricht — er ist als Erprobung
+        eines Formats entstanden, nicht als fertiges Unterrichtsmaterial.</p>
+      </div>
+    </div>
+
+    <div class="sim-rahmen">
+      <div class="sim-buehne" id="spielBuehne">
+        <div class="sim-skalierung" id="spielSkalierung">
+          <iframe id="spielRahmen"
+                  title="Lernspiel: Aequoria und die Große Waage"
+                  src="https://mrhey133.github.io/aequoria/"
+                  loading="lazy"></iframe>
         </div>
       </div>
+    </div>
+
+    <div class="sim-fuss">
+      <a class="knopf" href="https://mrhey133.github.io/aequoria/"
+         target="_blank" rel="noopener">Spiel in eigenem Tab öffnen</a>
+      <span>Zum Spielen einmal ins Bild klicken, damit die Tastatur dorthin wirkt.
+      Pfeiltasten laufen, Enter oder Leertaste bestätigt, Esc öffnet das Menü.</span>
+    </div>
+
+    <div class="sim-mobilhinweis">
+      <div class="was">„Aequoria und die Große Waage“</div>
+      <p>Das Spiel wird über die Tastatur gesteuert und braucht einen größeren Bildschirm.</p>
+      <a class="knopf" href="https://mrhey133.github.io/aequoria/"
+         target="_blank" rel="noopener">Spiel öffnen</a>
+    </div>
+
+    <div class="sim-druckhinweis">
+      <strong>Lernspiel „Aequoria und die Große Waage“</strong><br>
+      In der Druckfassung nicht darstellbar. Direkt aufrufbar unter:
+      https://mrhey133.github.io/aequoria/
     </div>
   </section>
 
@@ -704,24 +745,32 @@ footer{
    beschnitten; die Buehnenhoehe folgt dem Skalierungsfaktor.
    ============================================================ */
 (function(){
-  const buehne     = document.getElementById('simBuehne');
-  const skalierung = document.getElementById('simSkalierung');
-  if(!buehne || !skalierung) return;
+  /* Beide Buehnen haben eine feste Eigenaufloesung und skalieren nicht
+     von sich aus. Ist die Spalte schmaler, wird proportional verkleinert
+     statt beschnitten; die Buehnenhoehe folgt dem Faktor. */
+  const BUEHNEN = [
+    {buehne:'simBuehne',   skalierung:'simSkalierung',   breite:1024, hoehe:768},
+    {buehne:'spielBuehne', skalierung:'spielSkalierung', breite:800,  hoehe:600}
+  ];
 
-  const BREITE = 1024, HOEHE = 768;
+  BUEHNEN.forEach(function(k){
+    const buehne     = document.getElementById(k.buehne);
+    const skalierung = document.getElementById(k.skalierung);
+    if(!buehne || !skalierung) return;
 
-  function einpassen(){
-    const faktor = Math.min(1, buehne.clientWidth / BREITE);
-    skalierung.style.transform = 'scale(' + faktor + ')';
-    buehne.style.height = (HOEHE * faktor) + 'px';
-  }
+    function einpassen(){
+      const faktor = Math.min(1, buehne.clientWidth / k.breite);
+      skalierung.style.transform = 'scale(' + faktor + ')';
+      buehne.style.height = (k.hoehe * faktor) + 'px';
+    }
 
-  einpassen();
-  if(window.ResizeObserver){
-    new ResizeObserver(einpassen).observe(buehne);
-  } else {
-    window.addEventListener('resize', einpassen);
-  }
+    einpassen();
+    if(window.ResizeObserver){
+      new ResizeObserver(einpassen).observe(buehne);
+    } else {
+      window.addEventListener('resize', einpassen);
+    }
+  });
 })();
 </script>
 
