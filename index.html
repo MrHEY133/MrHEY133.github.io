@@ -833,6 +833,10 @@ footer{
   }
 
   function markieren(){
+    /* Waehrend der Sprunganimation nach einem Klick bleibt die dort
+       gesetzte Markierung stehen — sonst fiele sie kurz zurueck. */
+    if(Date.now() < sperreBis) return;
+
     /* Aktiv ist der letzte Abschnitt, dessen Oberkante die Schwelle
        bereits erreicht oder überschritten hat. */
     let aktiv = eintraege[0];
@@ -864,6 +868,22 @@ footer{
     if(jetzt - zuletzt >= 80){ zuletzt = jetzt; markieren(); }
     else nachlauf = setTimeout(function(){ zuletzt = Date.now(); markieren(); }, 80);
   }
+
+  /* Ein Klick auf die Leiste markiert sein Ziel sofort und behaelt die
+     Markierung waehrend der Sprunganimation. Damit haengt der Klickfall
+     nicht mehr davon ab, wo der Browser am Ende genau stehenbleibt. */
+  let sperreBis = 0;
+  eintraege.forEach(function(e){
+    e.a.addEventListener('click', function(){
+      eintraege.forEach(function(x){
+        const an = (x === e);
+        x.a.classList.toggle('aktiv', an);
+        if(an) x.a.setAttribute('aria-current', 'true');
+        else   x.a.removeAttribute('aria-current');
+      });
+      sperreBis = Date.now() + 900;    /* Dauer der weichen Sprungbewegung */
+    });
+  });
 
   markieren();
   window.addEventListener('scroll', anstossen, {passive:true});
