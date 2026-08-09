@@ -760,7 +760,11 @@ footer{
 
     function einpassen(){
       const faktor = Math.min(1, buehne.clientWidth / k.breite);
-      skalierung.style.transform = 'scale(' + faktor + ')';
+      /* Ist die Buehne breiter als der Inhalt, bleibt sonst rechts eine
+         Luecke — deshalb den Rest gleichmaessig auf beide Seiten legen. */
+      const rand = Math.max(0, (buehne.clientWidth - k.breite * faktor) / 2);
+      skalierung.style.transform =
+        'translateX(' + rand + 'px) scale(' + faktor + ')';
       buehne.style.height = (k.hoehe * faktor) + 'px';
     }
 
